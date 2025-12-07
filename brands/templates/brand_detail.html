@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{{ brand.name }} - SGE
+{% endblock %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <div class="card">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <h4>Detalhes da Marca</h4>
+        <div>
+          {% if perms.brands.change_brand %}
+          <a href="{% url 'brand_update' brand.id %}" class="btn btn-warning btn-sm">
+            <i class="bi bi-pencil"></i> Editar
+          </a>
+          {% endif %}
+          {% if perms.brands.delete_brand %}
+          <a href="{% url 'brand_delete' brand.id %}" class="btn btn-danger btn-sm">
+            <i class="bi bi-trash"></i> Excluir
+          </a>
+          {% endif %}
+        </div>
+      </div>
+      <div class="card-body">
+        <dl class="row">
+          <dt class="col-sm-3">ID:</dt>
+          <dd class="col-sm-9">{{ brand.id }}</dd>
+
+          <dt class="col-sm-3">Nome:</dt>
+          <dd class="col-sm-9">{{ brand.name }}</dd>
+
+          <dt class="col-sm-3">Descrição:</dt>
+          <dd class="col-sm-9">{{ brand.description|default:"N/A" }}</dd>
+
+          <dt class="col-sm-3">Criado em:</dt>
+          <dd class="col-sm-9">{{ brand.created_at|date:"d/m/Y H:i" }}</dd>
+
+          <dt class="col-sm-3">Atualizado em:</dt>
+          <dd class="col-sm-9">{{ brand.updated_at|date:"d/m/Y H:i" }}</dd>
+        </dl>
+
+        <a href="{% url 'brand_list' %}" class="btn btn-secondary">
+          <i class="bi bi-arrow-left"></i> Voltar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
